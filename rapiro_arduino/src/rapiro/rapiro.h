@@ -52,10 +52,8 @@ const char trim_angle[N_SERVOS] = {
                            1,  // L Foot yaw
                            4}; // L Foot pitch
 // range for servos
-//const byte min_angle[N_SERVOS] = {  0,   0,   0,  25,  56,  50,  45,   0,  50,  56, 130, 110};
-//const byte max_angle[N_SERVOS] = {180, 180, 180, 130, 110, 130, 110, 180, 160, 110, 135,  70};
-const byte min_angle[N_SERVOS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-const byte max_angle[N_SERVOS] = {180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180};
+const byte min_angle[N_SERVOS] = {  0,   0,   0,  25,  55,   0,  45,  55,  45,  35,  45,  50};
+const byte max_angle[N_SERVOS] = {180, 180, 180, 135, 110, 180, 160, 110, 135, 130, 135, 145};
 // zero positions
 const byte zero_pose[N_SERVOS] = { 90,  90,   0, 130,  90, 180,  50,  90,  90,  90,  90,  90};
                     
