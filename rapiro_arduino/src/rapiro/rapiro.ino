@@ -48,7 +48,7 @@ void setup()
   range_msg.radiation_type = sensor_msgs::Range::ULTRASOUND;
   range_msg.field_of_view = 0.367; // 21 Degree
   range_msg.min_range = 0.02; // 2cm
-  range_msg.min_range = 4.0; // 4m
+  range_msg.max_range = 4.0;  // 4m
   
   // set up and start all servos
   servo[0].attach(PIN_HEAD);      // Head yaw
