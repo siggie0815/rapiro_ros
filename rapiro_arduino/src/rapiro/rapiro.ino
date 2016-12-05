@@ -1,7 +1,7 @@
 #include <ros.h>
 #include <rapiro_msgs/JointState.h>
+#include <rapiro_msgs/Ranging.h>
 #include <rapiro_msgs/Trajectory.h>
-#include <sensor_msgs/Range.h>
 
 #include <Servo.h>
 #include <Ultrasonic.h>
@@ -18,7 +18,6 @@ unsigned long tgt_time[N_SERVOS];
 
 // ROS messages
 rapiro_msgs::JointState state_msg;
-sensor_msgs::Range range_msg;
 char usr_frame[] = "usr_frame";
 
 // loop frequency
@@ -31,24 +30,20 @@ Servo servo[N_SERVOS];
 Ultrasonic sensor(PIN_TRIG, PIN_ECHO);
 
 // callback functions
-void trajectory_cb(const rapiro_msgs::Trajectory &);
+void trajectory_cb(const rapiro_msgs::Trajectory&);
+void ranging_srv_cb(const rapiro_msgs::Ranging::Request&, rapiro_msgs::Ranging::Response&);
 
 // ROS
-ros::NodeHandle_<ArduinoHardware, 1, 2, 100, 100> nh;
-ros::Publisher pub_range("range", &range_msg);
+ros::NodeHandle_<ArduinoHardware, 2, 2, 100, 100> nh;
 ros::Publisher pub_state("joint_state", &state_msg);
 ros::Subscriber<rapiro_msgs::Trajectory> sub_trajectory("trajectory_cmd", &trajectory_cb);
+ros::ServiceServer<rapiro_msgs::Ranging::Request, rapiro_msgs::Ranging::Response> srv_ranging("ranging", &ranging_srv_cb);
 
 // init controller
 void setup()
 {
-  // set up sensor and range msg
+  // set up sensor
   sensor.Config();
-  range_msg.header.frame_id = usr_frame;
-  range_msg.radiation_type = sensor_msgs::Range::ULTRASOUND;
-  range_msg.field_of_view = 0.367; // 21 Degree
-  range_msg.min_range = 0.02; // 2cm
-  range_msg.min_range = 4.0; // 4m
   
   // set up and start all servos
   servo[0].attach(PIN_HEAD);      // Head yaw
@@ -85,8 +80,8 @@ void setup()
   // start ROS Node
   nh.getHardware()->setBaud(115200);
   nh.initNode();
-  nh.advertise(pub_range);
   nh.advertise(pub_state);
+  nh.advertiseService(srv_ranging);
   nh.subscribe(sub_trajectory);
 }
 
@@ -179,7 +174,7 @@ void interpolate_traj(byte id, unsigned long now)
   }
   else
   {
-    // no timesteps left ==> go to target and stop further interpolating
+    // no timesteps left ==> go to target and stop
     tgt_time[id] = 0;
     cur_pose[id] = tgt_pose[id];
   }
@@ -199,5 +194,15 @@ byte trim_and_clamp(byte id)
     val = max_angle[id];
   
   return (byte)val;
+}
+
+void ranging_srv_cb(const rapiro_msgs::Ranging::Request &req, rapiro_msgs::Ranging::Response &res)
+{
+  res.range.radiation_type = sensor_msgs::Range::ULTRASOUND;
+  res.range.header.frame_id = usr_frame;
+  res.range.field_of_view = 0.367;
+  res.range.min_range = 0.05;
+  res.range.max_range = 4.00;
+  res.range.range = float(sensor.Ranging(CM)) / 100.0;
 }
 
