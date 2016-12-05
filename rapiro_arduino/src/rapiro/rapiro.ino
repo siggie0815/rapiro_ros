@@ -83,6 +83,7 @@ void setup()
   next_pub = millis();
   
   // start ROS Node
+  nh.getHardware()->setBaud(115200);
   nh.initNode();
   nh.advertise(pub_range);
   nh.advertise(pub_state);
@@ -113,6 +114,10 @@ void loop() {
   if (next_pub <= now)
   {
     next_pub = now + per_pub;
+
+    range_msg.header.stamp = nh.now();
+    range_msg.range = float(sensor.Ranging(CM)) / 100.0;
+    pub_range.publish(&range_msg);
 
     state_msg.header.stamp = nh.now();
     pub_state.publish(&state_msg);
