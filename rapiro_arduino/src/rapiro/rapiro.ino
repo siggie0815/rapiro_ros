@@ -188,16 +188,15 @@ void interpolate_traj(byte id, unsigned long now)
 // validate new servo angle
 byte trim_and_clamp(byte id)
 {
-  // apply servo offset
-  int val = cur_pose[id] + trim_angle[id];
+  byte& angle = cur_pose[id];
   
-  // clamp into allowd range
-  if (val < min_angle[id]) 
-    val = min_angle[id];
-    
-  if (val > max_angle[id]) 
-    val = max_angle[id];
-  
-  return (byte)val;
+  // clamp to allowd range
+  if (angle < min_angle[id])
+    angle = min_angle[id];
+  if (angle > max_angle[id])
+    angle = max_angle[id];
+
+  // apply joint offset
+  return byte(max(0, angle + trim_angle[id]));
 }
 
