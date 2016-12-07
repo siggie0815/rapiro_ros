@@ -47,6 +47,7 @@ add_message_files(
   FILES
   JointIDs.msg
   JointState.msg
+  Range.msg
   Trajectory.msg
 )
 

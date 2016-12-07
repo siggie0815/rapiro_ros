@@ -1,7 +1,7 @@
 #include <ros.h>
 #include <rapiro_msgs/JointState.h>
+#include <rapiro_msgs/Range.h>
 #include <rapiro_msgs/Trajectory.h>
-#include <sensor_msgs/Range.h>
 
 #include <Servo.h>
 #include <Ultrasonic.h>
@@ -18,8 +18,7 @@ unsigned long tgt_time[N_SERVOS];
 
 // ROS messages
 rapiro_msgs::JointState state_msg;
-sensor_msgs::Range range_msg;
-char usr_frame[] = "usr_frame";
+rapiro_msgs::Range range_msg;
 
 // loop frequency
 unsigned long next_traj, next_pub;
@@ -35,20 +34,15 @@ void trajectory_cb(const rapiro_msgs::Trajectory &);
 
 // ROS
 ros::NodeHandle_<ArduinoHardware, 1, 2, 100, 100> nh;
-ros::Publisher pub_range("range", &range_msg);
-ros::Publisher pub_state("joint_state", &state_msg);
-ros::Subscriber<rapiro_msgs::Trajectory> sub_trajectory("trajectory_cmd", &trajectory_cb);
+ros::Publisher pub_range("range_raw", &range_msg);
+ros::Publisher pub_state("joint_states_raw", &state_msg);
+ros::Subscriber<rapiro_msgs::Trajectory> sub_trajectory("traj_cmd_raw", &trajectory_cb);
 
 // init controller
 void setup()
 {
-  // set up sensor and range msg
+  // set up sensor
   sensor.Config();
-  range_msg.header.frame_id = usr_frame;
-  range_msg.radiation_type = sensor_msgs::Range::ULTRASOUND;
-  range_msg.field_of_view = 0.367; // 21 Degree
-  range_msg.min_range = 0.02; // 2cm
-  range_msg.max_range = 4.0;  // 4m
   
   // set up and start all servos
   servo[0].attach(PIN_HEAD);      // Head yaw
@@ -115,11 +109,11 @@ void loop() {
   {
     next_pub = now + per_pub;
 
-    range_msg.header.stamp = nh.now();
-    range_msg.range = float(sensor.Ranging(CM)) / 100.0;
+    range_msg.stamp = nh.now();
+    range_msg.range = sensor.Ranging(CM);
     pub_range.publish(&range_msg);
 
-    state_msg.header.stamp = nh.now();
+    state_msg.stamp = nh.now();
     pub_state.publish(&state_msg);
     
     nh.spinOnce();
