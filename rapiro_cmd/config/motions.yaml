@@ -1,0 +1,63 @@
+forward:
+  header:
+    seq: 0
+    stamp:
+      secs: 0
+      nsecs: 0
+    frame_id: ''
+  joint_names: ['r_foot_y_jnt', 'r_foot_p_jnt', 'l_foot_y_jnt', 'l_foot_p_jnt']
+  points:
+  - positions: [1.396, 1.920, 1.396, 2.094]
+    velocities: [0]
+    accelerations: [0]
+    effort: [0]
+    time_from_start: {secs: 0, nsecs: 500000000}
+  - positions: [1.222, 1.571, 1.222, 1.571]
+    velocities: [0]
+    accelerations: [0]
+    effort: [0]
+    time_from_start: {secs: 0, nsecs: 500000000}
+  - positions: [1.222, 1.222, 1.222, 1.396]
+    velocities: [0]
+    accelerations: [0]
+    effort: [0]
+    time_from_start: {secs: 0, nsecs: 500000000}
+  - positions: [1.745, 1.047, 1.745, 1.222]
+    velocities: [0]
+    accelerations: [0]
+    effort: [0]
+    time_from_start: {secs: 0, nsecs: 500000000}
+  - positions: [1.920, 1.571, 1.920, 1.571]
+    velocities: [0]
+    accelerations: [0]
+    effort: [0]
+    time_from_start: {secs: 0, nsecs: 500000000}
+  - positions: [1.920, 1.745, 1.920, 1.920]
+    velocities: [0]
+    accelerations: [0]
+    effort: [0]
+    time_from_start: {secs: 0, nsecs: 500000000}
+look_around:
+  header:
+    seq: 0
+    stamp:
+      secs: 0
+      nsecs: 0
+    frame_id: ''
+  joint_names: ['head_jnt', 'waist_jnt']
+  points:
+  - positions: [0.262, 0.523]
+    velocities: [0]
+    accelerations: [0]
+    effort: [0]
+    time_from_start: {secs: 2, nsecs: 500000000}
+  - positions: [2.880, 2.618]
+    velocities: [0]
+    accelerations: [0]
+    effort: [0]
+    time_from_start: {secs: 5, nsecs: 0}
+  - positions: [1.571, 1.571]
+    velocities: [0]
+    accelerations: [0]
+    effort: [0]
+    time_from_start: {secs: 2, nsecs: 500000000}

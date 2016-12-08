@@ -7,7 +7,9 @@
   </include>
   
   <!-- start rapiro_cmd_node to communicate to standard ROS nodes -->
-  <node name="rapiro_cmd" pkg="rapiro_cmd" type="rapiro_cmd_node.py" />
+  <node name="rapiro_cmd" pkg="rapiro_cmd" type="rapiro_cmd_node.py">
+    <rosparam ns="motions" command="load" file="$(find rapiro_cmd)/config/motions.yaml" />
+  </node>
   
   <!-- robot state publisher -->
   <param name="robot_description" textfile="$(find rapiro_description)/urdf/rapiro.urdf" />
