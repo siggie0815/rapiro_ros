@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<robot name="rapiro">
+
+  <!-- BaseLink -->
+
+  <link name="base_link"/>
+  
+  <joint name="base_waist_fix" type="fixed">
+    <parent link="base_link"/>
+    <child link="waist"/>
+  </joint>
+  
+  <!-- Torso and Head -->
+  
+  <link name="waist">
+    <visual>
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/waist.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
+    </visual>
+  </link>
+  
+  <joint name="waist_jnt" type="revolute">
+    <parent link="waist"/>
+    <origin xyz="0 0 .015" rpy="0 0 -1.571"/>
+    <child link="body"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower=".175" upper="2.967" velocity="10"/>
+  </joint>
+  
+  <link name="body">
+    <visual>
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/body.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
+      <origin xyz="0 0 .02"/>
+    </visual>
+  </link>
+  
+  <joint name="head_jnt" type="revolute">
+    <parent link="body"/>
+    <origin xyz="0 0 .0375" rpy="0 0 -1.571"/>
+    <child link="head"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower=".175" upper="2.967" velocity="10"/>
+  </joint>
+  
+  <link name="head">
+    <visual>
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/head.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
+      <origin xyz="0 0 .055"/>
+    </visual>
+  </link>
+  
+  <!-- Legs and Feet -->
+  
+  <joint name="r_foot_y_jnt" type="revolute">
+    <parent link="waist"/>
+    <origin xyz="0 -.03 -.015" rpy="3.142 0 1.571"/>
+    <child link="r_leg"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower=".873" upper="2.269" velocity="10"/>
+  </joint>
+  
+  <link name="r_leg" />
+  
+  <joint name="r_foot_p_jnt" type="revolute">
+    <parent link="r_leg"/>
+    <origin xyz="0 0 .035" rpy="0 -1.571 0"/>
+    <child link="r_foot"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower=".611" upper="2.269" velocity="10"/>
+  </joint>
+  
+  <link name="r_foot">
+    <visual>
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/r_foot.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
+    </visual>
+  </link>
+  
+  <joint name="l_foot_y_jnt" type="revolute">
+    <parent link="waist"/>
+    <origin xyz="0 .03 -.015" rpy="3.142 0 1.571"/>
+    <child link="l_leg"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower=".873" upper="2.269" velocity="10"/>
+  </joint>
+  
+  <link name="l_leg" />
+  
+  <joint name="l_foot_p_jnt" type="revolute">
+    <parent link="l_leg"/>
+    <origin xyz="0 0 .035" rpy="0 -1.571 0"/>
+    <child link="l_foot"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower=".873" upper="2.531" velocity="10"/>
+  </joint>
+  
+  <link name="l_foot">
+    <visual>
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/l_foot.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
+    </visual>
+  </link>
+  
+  <!-- Arms and Hands -->
+  
+  <!-- Sensor Frames -->
+  
+  <joint name="usr_fix" type="fixed">
+    <parent link="head"/>
+    <origin xyz=".065 0 .045"/>
+    <child link="usr_frame"/>
+  </joint>
+  
+  <link name="usr_frame"/>
+  
+  <material name="rapiro_white">
+    <color rgba=".8 .8 .8 1.0"/>
+  </material>
+  
+</robot>
