@@ -13,5 +13,7 @@
   
   <!-- robot state publisher -->
   <param name="robot_description" textfile="$(find rapiro_description)/urdf/rapiro.urdf" />
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_pub" />
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_pub">
+    <param name="publish_frequency" value="10.0"/>
+  </node>
 </launch>
