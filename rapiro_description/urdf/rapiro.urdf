@@ -31,11 +31,18 @@
   
   <link name="body">
     <visual>
+      <origin xyz="0 0 .02"/>
       <geometry>
         <mesh filename="package://rapiro_description/meshes/body.stl"/>
       </geometry>
       <material name="rapiro_white" />
-      <origin xyz="0 0 .02"/>
+    </visual>
+    <visual>
+      <origin xyz="-.065 0 .03"/>
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/backpack.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
     </visual>
   </link>
   
@@ -49,11 +56,11 @@
   
   <link name="head">
     <visual>
+      <origin xyz="0 0 .055"/>
       <geometry>
         <mesh filename="package://rapiro_description/meshes/head.stl"/>
       </geometry>
       <material name="rapiro_white" />
-      <origin xyz="0 0 .055"/>
     </visual>
   </link>
   
@@ -114,6 +121,114 @@
   </link>
   
   <!-- Arms and Hands -->
+  
+  <joint name="r_shld_r_jnt" type="revolute">
+    <parent link="body"/>
+    <origin xyz="0 -.06 .0225" rpy="0 1.571 -1.571"/>
+    <child link="r_shoulder"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="0" upper="3.142" velocity="10"/>
+  </joint>
+  
+  <link name="r_shoulder">
+    <visual>
+      <origin xyz="0 0 .02" />
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/shoulder.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
+    </visual>
+  </link>
+  
+  <joint name="r_shld_p_jnt" type="revolute">
+    <parent link="r_shoulder"/>
+    <origin xyz="0 0 .0225" rpy="-1.571 -2.269 0"/>
+    <child link="r_arm"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="0" upper="3.142" velocity="10"/>
+  </joint>
+  
+  <link name="r_arm">
+    <visual>
+      <origin xyz="0 0 .004" />
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/r_arm.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
+    </visual>
+  </link>
+  
+  <joint name="r_hand_jnt" type="revolute">
+    <parent link="r_arm"/>
+    <origin xyz=".0505 0 0" rpy="3.142 0 1.920"/>
+    <child link="r_hand"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="0" upper="3.142" velocity="10"/>
+  </joint>
+  
+  <link name="r_hand">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/r_hand.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
+    </visual>
+  </link>
+  
+  <joint name="l_shld_r_jnt" type="revolute">
+    <parent link="body"/>
+    <origin xyz="0 .06 .0225" rpy="0 -1.571 -1.571"/>
+    <child link="l_shoulder"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="0" upper="3.142" velocity="10"/>
+  </joint>
+  
+  <link name="l_shoulder">
+    <visual>
+      <origin xyz="0 0 .02" />
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/shoulder.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
+    </visual>
+  </link>
+  
+  <joint name="l_shld_p_jnt" type="revolute">
+    <parent link="l_shoulder"/>
+    <origin xyz="0 0 .0225" rpy="1.571 .873 0"/>
+    <child link="l_arm"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="0" upper="3.142" velocity="10"/>
+  </joint>
+  
+  <link name="l_arm">
+    <visual>
+      <origin xyz="0 0 .004" />
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/l_arm.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
+    </visual>
+  </link>
+  
+  <joint name="l_hand_jnt" type="revolute">
+    <parent link="l_arm"/>
+    <origin xyz=".0505 0 0" rpy="3.142 0 .960"/>
+    <child link="l_hand"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="0" upper="3.142" velocity="10"/>
+  </joint>
+  
+  <link name="l_hand">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://rapiro_description/meshes/l_hand.stl"/>
+      </geometry>
+      <material name="rapiro_white" />
+    </visual>
+  </link>
   
   <!-- Sensor Frames -->
   
