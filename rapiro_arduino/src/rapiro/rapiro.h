@@ -52,10 +52,10 @@ const char trim_angle[N_SERVOS] = {
                            1,  // L Foot yaw
                            2}; // L Foot pitch
 // range for servos                 0    1    2    3    4    5    6    7    8    9   10   11
-const byte min_angle[N_SERVOS] = {  0,   0,   0,  25,  55,   0,  45,  55,  50,  35,  50,  50};
-const byte max_angle[N_SERVOS] = {180, 180, 180, 135, 110, 180, 160, 110, 130, 130, 130, 145};
+const byte min_angle[N_SERVOS] = { 10,  10,   0,  25,  55,   0,  45,  55,  50,  35,  50,  50};
+const byte max_angle[N_SERVOS] = {170, 170, 180, 135, 110, 180, 155, 110, 130, 130, 130, 145};
 // zero positions
-const byte zero_pose[N_SERVOS] = { 90,  90,   0, 130,  90, 180,  50,  90,  90,  90,  90,  90};
+const byte zero_pose[N_SERVOS] = { 90,  90,   0, 130,  90, 180,  50,  75,  90,  90,  90,  90};
                     
 #endif // _RAPIRO_H
 

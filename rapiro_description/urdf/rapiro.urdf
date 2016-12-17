@@ -145,7 +145,7 @@
     <origin xyz="0 0 .0225" rpy="-1.571 -2.269 0"/>
     <child link="r_arm"/>
     <axis xyz="0 0 1"/>
-    <limit effort="1000.0" lower="0" upper="3.142" velocity="10"/>
+    <limit effort="1000.0" lower=".436" upper="2.356" velocity="10"/>
   </joint>
   
   <link name="r_arm">
@@ -163,7 +163,7 @@
     <origin xyz=".0505 0 0" rpy="3.142 0 1.920"/>
     <child link="r_hand"/>
     <axis xyz="0 0 1"/>
-    <limit effort="1000.0" lower="0" upper="3.142" velocity="10"/>
+    <limit effort="1000.0" lower=".960" upper="1.920" velocity="10"/>
   </joint>
   
   <link name="r_hand">
@@ -199,7 +199,7 @@
     <origin xyz="0 0 .0225" rpy="1.571 .873 0"/>
     <child link="l_arm"/>
     <axis xyz="0 0 1"/>
-    <limit effort="1000.0" lower="0" upper="3.142" velocity="10"/>
+    <limit effort="1000.0" lower=".785" upper="2.705" velocity="10"/>
   </joint>
   
   <link name="l_arm">
@@ -217,7 +217,7 @@
     <origin xyz=".0505 0 0" rpy="3.142 0 .960"/>
     <child link="l_hand"/>
     <axis xyz="0 0 1"/>
-    <limit effort="1000.0" lower="0" upper="3.142" velocity="10"/>
+    <limit effort="1000.0" lower=".960" upper="1.920" velocity="10"/>
   </joint>
   
   <link name="l_hand">
