@@ -8,5 +8,6 @@ if __name__ == '__main__':
     rospy.loginfo('Starting rapiro_cmd_node')
 
     relay = rapiro_cmd.RapiroMsgRelay()
+    cmd = rapiro_cmd.RapiroMotionCmd(relay)
 
     rospy.spin()

@@ -1,5 +1,4 @@
 <launch>
-
   <!-- start rosserial server to connect to rapiro -->
   <include file="$(find rosserial_server)/launch/serial.launch">
     <arg name="baud" value="115200" />
@@ -7,13 +6,13 @@
   </include>
   
   <!-- start rapiro_cmd_node to communicate to standard ROS nodes -->
-  <node name="rapiro_cmd" pkg="rapiro_cmd" type="rapiro_cmd_node.py">
+  <node name="rapiro_cmd" pkg="rapiro_cmd" type="rapiro_cmd_node.py" output="screen">
     <rosparam ns="motions" command="load" file="$(find rapiro_cmd)/config/motions.yaml" />
   </node>
   
   <!-- robot state publisher -->
   <param name="robot_description" textfile="$(find rapiro_description)/urdf/rapiro.urdf" />
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_pub">
-    <param name="publish_frequency" value="10.0"/>
+    <param name="publish_frequency" value="20.0"/>
   </node>
 </launch>
