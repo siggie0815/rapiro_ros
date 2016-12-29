@@ -1,7 +1,6 @@
 <launch>
   <!-- start rosserial server to connect to rapiro -->
   <include file="$(find rosserial_server)/launch/serial.launch">
-    <arg name="baud" value="115200" />
     <arg name="port" value="/dev/rfcomm0" />
   </include>
   
@@ -12,7 +11,5 @@
   
   <!-- robot state publisher -->
   <param name="robot_description" textfile="$(find rapiro_description)/urdf/rapiro.urdf" />
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_pub">
-    <param name="publish_frequency" value="20.0"/>
-  </node>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_pub" />
 </launch>

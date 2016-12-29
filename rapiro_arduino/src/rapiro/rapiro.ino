@@ -77,7 +77,6 @@ void setup()
   next_pub = millis();
   
   // start ROS Node
-  nh.getHardware()->setBaud(115200);
   nh.initNode();
   nh.advertise(pub_range);
   nh.advertise(pub_state);
