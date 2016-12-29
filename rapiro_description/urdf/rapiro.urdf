@@ -7,6 +7,7 @@
   
   <joint name="base_waist_fix" type="fixed">
     <parent link="base_link"/>
+    <origin xyz="0 0 .065" />
     <child link="waist"/>
   </joint>
   

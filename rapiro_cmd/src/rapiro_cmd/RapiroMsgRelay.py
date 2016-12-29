@@ -29,11 +29,13 @@ class RapiroMsgRelay:
                    rapiro.JointIDs.L_FOOT_P: 'l_foot_p_jnt', 'l_foot_p_jnt': rapiro.JointIDs.L_FOOT_P}
 
     def __init__(self):
+        self.odom = None
+
         # Range translation Rapiro -> ROS
         self.range_msg = sensor.Range()
         self.range_msg.header.frame_id = 'usr_frame'
         self.range_msg.radiation_type = sensor.Range.ULTRASOUND
-        self.range_msg.field_of_view = math.radians(21.0)
+        self.range_msg.field_of_view = math.radians(45.0)
         self.range_msg.min_range = 0.02
         self.range_msg.max_range = 4.0
         self.range_pub = rospy.Publisher('range', sensor.Range, queue_size=10)
@@ -62,6 +64,8 @@ class RapiroMsgRelay:
         self.joint_state_msg.header.stamp = in_msg.stamp
         self.joint_state_msg.position = [math.radians(p) for p in bytearray(in_msg.pos)]
         self.joint_state_pub.publish(self.joint_state_msg)
+        if self.odom:
+            self.odom.new_joint_state(self.joint_state_msg)
 
     def trajectory_cb(self, traj_msg):
         self.trajectory_msg = rapiro.Trajectory()
@@ -74,7 +78,6 @@ class RapiroMsgRelay:
             self.trajectory_pub.publish(self.trajectory_msg)
             self.trajectory_msg = None
 
-
     def trajectory_execution_cb(self, event):
         cur_traj_pt = self.active_trajectory.points.pop(0)
         self.trajectory_msg.tgt_pos = [round(math.degrees(p)) for p in cur_traj_pt.positions]
@@ -85,3 +88,6 @@ class RapiroMsgRelay:
         else:
             self.active_trajectory = None
             self.trajectory_msg = None
+
+    def set_odom(self, odom):
+        self.odom = odom
